@@ -3,8 +3,6 @@ require 'wiki/entry'
 
 module Wiki
 
-  class Error < StandardError; end
-
   Configuration.config do
     parameter :project_root
     parameter :project_readme
