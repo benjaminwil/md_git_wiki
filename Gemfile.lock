@@ -2,11 +2,13 @@ PATH
   remote: .
   specs:
     md_git_wiki (0.1.0)
+      front_matter_parser
 
 GEM
   remote: https://rubygems.org/
   specs:
     coderay (1.1.2)
+    front_matter_parser (0.2.0)
     method_source (0.9.2)
     minitest (5.11.3)
     pry (0.12.2)
