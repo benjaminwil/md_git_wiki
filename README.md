@@ -1,39 +1,61 @@
-# MdGitWiki
+# Markdown-Git Wiki
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/md_git_wiki`. To experiment with that code, run `bin/console` for an interactive prompt.
+This gem creates a wiki out of any git repository that has directories with
+Markdown files inside.  It primarily does this by adding a table of contents to
+the end of each directory's `README.md` file.  It was inspired by [Artsy
+Engineering's README][1] repository.
 
-TODO: Delete this and the text above, and describe your gem
+In order to make a functional wiki, then, this gem requires some opinionated
+file formatting:
 
-## Installation
+  - Each subdirectory contains a `README.md` file.
+  - Each content file contains YAML frontmatter with `title` and `description`
+    fields.
+  - The parent directory contains a YAML file with `title`s and `description`s
+    for each subdirectory (or *section*) of the wiki.
 
-Add this line to your application's Gemfile:
+[1]: https://github.com/artsy/README
 
-```ruby
-gem 'md_git_wiki'
-```
+## Example structure
 
-And then execute:
+The following block should make the required directory structure more clear:
 
-    $ bundle
+    my_wiki
+    │
+    ├── README.md
+    ├── my_wiki.yml
+    ├── section-one
+    │     ├── README.md
+    │     ├── frequently-asked-questions.md
+    │     ├── prerequisites.md
+    │     └── setup.md
+    └── section-two
+          ├── README.md
+          ├── emergency-contacts.md
+          └── how-to-drive-the-bulldozer.md
 
-Or install it yourself as:
+This gem only modifies the `README.md` files. I recommend that you keep them
+short so that the tables of contents aren't "hidden" at the bottom of each
+file.
 
-    $ gem install md_git_wiki
+When generated, a table of contents should look like this:
+
+    |----------------------------------|-----------------------------------------------------------------|
+    | **Title**                        | **Description**                                                 |
+    |----------------------------------|-----------------------------------------------------------------|
+    | [Frequently asked questions][a3] | Questions and answers that help you assess Section One.         |
+    | [Prerequisites][4r]              | A list of software you require before starting setup.           |
+    | [Setup][fo]                      | The setup procedure, including optional configuration settings. |
+    |----------------------------------|-----------------------------------------------------------------|
+
+    [a3]: frequently-asked-questions.md
+    [4r]: prerequisites.md
+    [fo]: setup.md
+
+Note the reference-style links, and how they ensure the table of contents is
+still readable in plain text.
 
 ## Usage
 
-TODO: Write usage instructions here
+WIP
 
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/md_git_wiki.
-
-## License
-
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
