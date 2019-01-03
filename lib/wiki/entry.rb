@@ -12,14 +12,14 @@ module Wiki
 
     private
 
-    def metadata
-      file = ::FrontMatterParser::Parser.parse_file(@file)
-      file.front_matter
-    end
-
     def frontmatter_undefined
       "Frontmatter undefined for " \
       "#{filename - ::Wiki::Configuration.project_root}"
+    end
+
+    def metadata
+      file = ::FrontMatterParser::Parser.parse_file(@file)
+      file.front_matter
     end
 
   end

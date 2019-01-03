@@ -1,18 +1,25 @@
 require 'wiki/configuration'
 require 'wiki/entry'
+require 'wiki/section'
 
 module Wiki
 
   Configuration.config do
-    parameter :project_root
+    parameter :ignore_dirs
     parameter :project_readme
+    parameter :project_root
+    parameter :project_sections
+    parameter :valid
   end
 
-  unless Configuration.project_root
-    puts 'Set a Wiki::Configuration.project_root value in your application. ' \
-      'This should be the project directory where your root README.md is.'
+  if Configuration.project_root
+    root = Configuration.project_root
+    Configuration.ignore_dirs = File.expand_path File.join(root, '.ignore_directories')
+    Configuration.project_readme = File.expand_path File.join(root, 'README.md')
+    Configuration.project_sections = File.expand_path File.join(root, 'wiki.yml')
+    Configuration.valid = true
   else
-    Configuration.project_readme = File.expand_path File.join(Configuration.project_root, 'README.md')
+    Configuration.valid = false
   end
 
 end
